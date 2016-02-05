@@ -41,7 +41,8 @@ Access the server at http://127.0.0.1:8000/admin
 * [x] Change questionnaire-question relation to many-to-many, allowing re-using popular questions
 * [x] Remove answer fields from questions using only form fields
 * [ ] Fix and add more validation to questions
-* [ ] Ordering questions
+* [x] Ordering questions
 * [ ] Ordering exported answers
 * [ ] More question types such as date picker
 * [ ] Widget selection to question
+* [ ] Fix adding new questions while creating questionnaires

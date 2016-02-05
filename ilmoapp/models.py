@@ -2,11 +2,11 @@ from django import forms
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from polymorphic.models import PolymorphicModel
-
+from sortedm2m.fields import SortedManyToManyField
 
 class Questionnaire(models.Model):
     title = models.CharField(max_length=100)
-    questions = models.ManyToManyField('Question')
+    questions = SortedManyToManyField('Question')
 
     def __str__(self):
         return self.title

@@ -4,3 +4,4 @@ django==1.9.2
 django-polymorphic
 psycopg2
 xlsxwriter
+django-sortedm2m
