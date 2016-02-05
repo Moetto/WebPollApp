@@ -1,11 +1,8 @@
 import json
 
 from django import forms
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
 from django.views.generic import View, FormView
 from django.shortcuts import render, get_object_or_404
-from extra_views import FormSetView
 
 from ilmoapp.models import *
 
@@ -16,7 +13,7 @@ class QuestionForm(FormView):
             def __init__(self, form_id, *args, **kwargs):
                 super().__init__(*args, **kwargs)
                 questionnaire = get_object_or_404(Questionnaire, id=form_id)
-                for question in questionnaire.question_set.all():
+                for question in questionnaire.questions.all():
                     field = question.form_class(help_text=question._meta.get_field('answer').name)
                     self.fields[question.title] = field
 

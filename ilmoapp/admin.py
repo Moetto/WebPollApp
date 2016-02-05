@@ -1,8 +1,8 @@
 from collections import OrderedDict
 
-from io import StringIO, BytesIO
+from io import BytesIO
 from django.contrib import admin
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from xlsxwriter.workbook import Workbook
 from ilmoapp.models import *
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
@@ -54,12 +54,6 @@ class SelectOneQuestionAdmin(PolymorphicChildModelAdmin):
     base_model = SelectOneQuestion
 
 
-class TextQuestionInline(admin.StackedInline):
-    model = TextQuestion
-    readonly_fields = ['question_ptr']
-    exclude = ['answer']
-
-
 class QuestionAdmin(PolymorphicParentModelAdmin):
     base_model = Question
     child_models = (
@@ -69,7 +63,6 @@ class QuestionAdmin(PolymorphicParentModelAdmin):
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    inlines = [TextQuestionInline]
     actions = [download_questionnaire_replies]
 
 

@@ -6,6 +6,7 @@ from polymorphic.models import PolymorphicModel
 
 class Questionnaire(models.Model):
     title = models.CharField(max_length=100)
+    questions = models.ManyToManyField('Question')
 
     def __str__(self):
         return self.title
@@ -13,10 +14,9 @@ class Questionnaire(models.Model):
 
 class Question(PolymorphicModel):
     title = models.CharField(max_length=100)
-    questionnaire = models.ForeignKey(Questionnaire)
 
     def __str__(self):
-        return "{}: {}".format(self.questionnaire,self.title)
+        return format(self.title)
 
 
 class TextQuestion(Question):
