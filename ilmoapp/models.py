@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import JSONField
 from polymorphic.models import PolymorphicModel
 from sortedm2m.fields import SortedManyToManyField
 
+
 class Questionnaire(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=10000, blank=True, null=True)
