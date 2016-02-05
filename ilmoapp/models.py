@@ -32,6 +32,14 @@ class SelectOneQuestion(Question):
 
 
 class Reply(models.Model):
+    class Meta:
+        verbose_name_plural = 'Replies'
+
     answers = JSONField()
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.SET_NULL, null=True)
     questionnaire_title = models.CharField(max_length=100)
+
+    def __str__(self):
+        if self.questionnaire is not None:
+            return self.questionnaire.title
+        return "Reply"
