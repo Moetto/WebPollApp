@@ -50,3 +50,5 @@ Access the server at http://127.0.0.1:8000/admin
 * [ ] Allow using questionnaires in iFrame
 * [ ] Allow template creation and selection from admin panel
 * [ ] Allow customising after-submit behaviour
+* [ ] Add option to download all replies to a questionnaire(s)
+* [ ] Improve downloads by renaming outputted file and sheets
