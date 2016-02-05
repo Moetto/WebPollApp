@@ -1,0 +1,6 @@
+pip
+setuptools
+django==1.9.2
+django-polymorphic
+psycopg2
+xlsxwriter
