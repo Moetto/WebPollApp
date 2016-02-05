@@ -1,3 +1,34 @@
-from django.shortcuts import render
+import json
 
-# Create your views here.
+from django import forms
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.views.generic import View, FormView
+from django.shortcuts import render, get_object_or_404
+from extra_views import FormSetView
+
+from ilmoapp.models import *
+
+
+class QuestionForm(FormView):
+    def get_form(self, form_class=None):
+        class Form(forms.Form):
+            def __init__(self, form_id, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                questionnaire = get_object_or_404(Questionnaire, id=form_id)
+                for question in questionnaire.question_set.all():
+                    field = question.form_class(help_text=question._meta.get_field('answer').name)
+                    self.fields[question.title] = field
+
+        return Form(form_id=self.kwargs['id'], **self.get_form_kwargs())
+
+    success_url = '/'
+    template_name = 'ilmoapp/basictemplate.html'
+
+    def form_valid(self, form):
+        questionnaire = get_object_or_404(Questionnaire, id=self.kwargs['id'])
+        answers = {}
+        for field in form.cleaned_data.keys():
+            answers[field] = form.cleaned_data[field]
+        Reply(questionnaire=questionnaire, questionnaire_title=questionnaire.title, answers=answers).save()
+        return super().form_valid(form)
