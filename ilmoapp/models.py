@@ -13,6 +13,7 @@ class Questionnaire(models.Model):
 
 
 class Question(PolymorphicModel):
+    help_text = models.TextField(max_length=1000, blank=True, null=True)
     title = models.CharField(max_length=100)
 
     def __str__(self):
@@ -20,13 +21,11 @@ class Question(PolymorphicModel):
 
 
 class TextQuestion(Question):
-    answer = models.TextField(max_length=1000, blank=True, null=True, name='answer')
     form_class = forms.CharField
     max_length = models.IntegerField(default=1000)
 
 
 class SelectOneQuestion(Question):
-    answer = models.IntegerField(blank=True, null=True, name='select_one')
     form_class = forms.IntegerField
 
 

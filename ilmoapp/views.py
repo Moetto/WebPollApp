@@ -14,7 +14,7 @@ class QuestionForm(FormView):
                 super().__init__(*args, **kwargs)
                 questionnaire = get_object_or_404(Questionnaire, id=form_id)
                 for question in questionnaire.questions.all():
-                    field = question.form_class(help_text=question._meta.get_field('answer').name)
+                    field = question.form_class(help_text=question.help_text)
                     self.fields[question.title] = field
 
         return Form(form_id=self.kwargs['id'], **self.get_form_kwargs())
