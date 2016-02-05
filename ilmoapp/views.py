@@ -29,3 +29,8 @@ class QuestionForm(FormView):
             answers[field] = form.cleaned_data[field]
         Reply(questionnaire=questionnaire, questionnaire_title=questionnaire.title, answers=answers).save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['questionnaire'] = get_object_or_404(Questionnaire, id=self.kwargs['id'])
+        return context

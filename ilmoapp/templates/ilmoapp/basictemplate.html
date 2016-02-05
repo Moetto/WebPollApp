@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+<h1>{{ questionnaire.title }}</h1>
+<p>{{ questionnaire.description }}</p>
+
 <form method="post" action="">
     {% csrf_token %}
     {{ form.as_p }}
