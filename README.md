@@ -49,3 +49,4 @@ Access the server at http://127.0.0.1:8000/admin
 * [ ] Create better UI for questionnaires
 * [ ] Allow using questionnaires in iFrame
 * [ ] Allow template creation and selection from admin panel
+* [ ] Allow customising after-submit behaviour
