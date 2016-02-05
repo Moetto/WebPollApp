@@ -33,7 +33,7 @@ python manage.py createsuperuser
 '''
 python manage.py runserver
 '''
-Access the server at http://127.0.0.1/admin
+Access the server at http://127.0.0.1:8000/admin
 
 
 # TODO
