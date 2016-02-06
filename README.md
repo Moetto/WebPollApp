@@ -1,7 +1,25 @@
 # WebPollApp
 Django application for creating polls in a way similar to Google Forms
 
-# Installation on debian
+# Installation with Vagrant
+## Install vagrant
+Download and install vagrant. Add it to path if necessary. In project folder download Vagrant box and init new virtual machine. Virtualbox requires contrib added to apt debian sources
+
+On Debian
+```
+sudo apt-get install vagrant virtualbox
+vagrant box add ubuntu/vivid64 --provider virtualbox
+vagrant up
+```
+Run in vagrant
+```
+vagrant ssh
+cd /home/ilmo
+python3 manage.py runserver 0.0.0.0:8000
+```
+Easier way is to setup IDE to handle running server. In Pycharm add remote interpreter for project, select Vagrant and change interpreter path to python3. In run settings add path mapping . = /home/ilmo and host to 0.0.0.0.
+
+# Installation on Debian
 ## Packages
 ```
 sudo apt-get install python3 python-dev python3-dev postgres python3-virtualenv libpq-dev postgresql-contrib
