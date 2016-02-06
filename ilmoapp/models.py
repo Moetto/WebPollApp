@@ -21,14 +21,32 @@ class Question(PolymorphicModel):
     def __str__(self):
         return format(self.title)
 
+    def field_kwargs(self):
+        return {'help_text': self.help_text}
+
 
 class TextQuestion(Question):
     form_class = forms.CharField
     max_length = models.IntegerField(default=1000)
 
+    def get_field(self, **kwargs):
+        return self.form_class(**self.field_kwargs())
+
 
 class SelectOneQuestion(Question):
-    form_class = forms.IntegerField
+    form_class = forms.ChoiceField
+    options = models.ManyToManyField('SelectOption')
+
+    def get_field(self, **kwargs):
+        choices = [(option,option,) for option in self.options.all()]
+        return self.form_class(choices=choices, **self.field_kwargs())
+
+
+class SelectOption(models.Model):
+    label = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.label
 
 
 class Reply(models.Model):

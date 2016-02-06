@@ -70,6 +70,7 @@ class ReplyAdmin(admin.ModelAdmin):
     actions = [download_replies]
 
 
+admin.site.register(SelectOption)
 admin.site.register(Reply, ReplyAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(TextQuestion, TextQuestionAdmin)
