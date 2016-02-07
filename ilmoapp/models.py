@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django import forms
 from django.db import models
 from django.contrib.postgres.fields import JSONField
@@ -40,11 +42,20 @@ class TextQuestion(Question):
 
 class SelectOneQuestion(Question):
     form_class = forms.ChoiceField
+    widget_classes = OrderedDict([('default', forms.Select,), ('radio button', forms.RadioSelect,)])
+    widget_choices = [(key, key,) for key in widget_classes.keys()]
+    widget = models.CharField(max_length=20, choices=widget_choices, default='default')
+
     options = models.ManyToManyField('SelectOption')
 
     def get_field(self, **kwargs):
         choices = [(option, option,) for option in self.options.all()]
         return self.form_class(choices=choices, **self.field_kwargs())
+
+    def field_kwargs(self):
+        kw = super().field_kwargs()
+        kw['widget'] = self.widget_classes[self.widget]
+        return kw
 
 
 class SelectOption(models.Model):
