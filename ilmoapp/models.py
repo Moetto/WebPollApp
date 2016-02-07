@@ -32,13 +32,18 @@ class TextQuestion(Question):
     def get_field(self, **kwargs):
         return self.form_class(**self.field_kwargs())
 
+    def field_kwargs(self):
+        kw = super().field_kwargs()
+        kw['max_length'] = self.max_length
+        return kw
+
 
 class SelectOneQuestion(Question):
     form_class = forms.ChoiceField
     options = models.ManyToManyField('SelectOption')
 
     def get_field(self, **kwargs):
-        choices = [(option,option,) for option in self.options.all()]
+        choices = [(option, option,) for option in self.options.all()]
         return self.form_class(choices=choices, **self.field_kwargs())
 
 
